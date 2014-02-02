@@ -1,0 +1,55 @@
+[client]
+port    = <%= port %>
+socket    = <%= socket %>
+[mysqld_safe]
+socket    = <%= socket %>
+nice    = 0
+[mysqld]
+user    = mysql
+socket    = <%= socket %>
+port      = <%= port %>
+basedir   = /usr
+datadir   = <%= datadir %>
+tmpdir    = /tmp
+skip-external-locking
+bind-address    = <%= bind_address %>
+key_buffer         = 16M
+max_allowed_packet = 16M
+thread_stack       = 192K
+thread_cache_size  = 8
+myisam-recover     = BACKUP
+query_cache_limit  = 1M
+query_cache_size   = 16M
+log_error          = <%= log_error %>
+expire_logs_days   = 10
+max_binlog_size    = 100M
+
+server-id = <%= server_id %>
+
+<% if binary_logs == true %>
+log-bin      = <%= log_bin %>
+binlog-do-db = <%= binlog_do_db %>
+<% end %>
+
+<% if slave_replication == true %>
+master-host          = <%= master_host          %>
+master-user          = <%= master_user          %>
+master-password      = <%= master_password      %>
+master-connect-retry = <%= master_connect_retry %>
+replicate-do-db      = <%= replicate_do_db      %>
+<% end %>
+
+<% if ssl == true %>
+ssl-ca    = <%= ssl_ca %>
+ssl-cert  = <%= ssl_cert %>
+ssl-key   = <%= ssl_key %>
+<% end %>
+
+[mysqldump]
+quick
+quote-names
+max_allowed_packet = 16M
+[mysql]
+[isamchk]
+key_buffer    = 16M
+!includedir /etc/mysql/conf.d/
