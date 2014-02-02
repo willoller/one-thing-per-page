@@ -59,7 +59,7 @@
           </div>
           <div class="col-md-8">
             <form action="/page" method="get">
-              <p><textarea class="form-control" rows="5" name="text" style="width: 8in; height: 5in; text-align: center; font-size: 100px;"></textarea></p>
+              <p><textarea class="form-control preview" name="text"></textarea></p>
               <p><button class="btn">Submit</button></p>
             </form>
           </div>
@@ -80,19 +80,54 @@
       <!-- Include all compiled plugins (below), or include individual files as needed -->
       <script src="/js/bootstrap.min.js"></script>
 
-      <script type="">
-      function adjustHeights(elem) {
-        var fontstep = 2;
-        if ($(elem).height()>$(elem).parent().height() || $(elem).width()>$(elem).parent().width()) {
-          $(elem).css('font-size',(($(elem).css('font-size').substr(0,2)-fontstep)) + 'px').css('line-height',(($(elem).css('font-size').substr(0,2))) + 'px');
-          console.log($(elem));
-          adjustHeights(elem);
+      <style type="text/css">
+        .preview {
+          width: 8in; 
+          height: 5in; 
+          text-align: center; 
+          font-size: 150px;
+          overflow: hidden;
+          font-weight: 100; 
+          font-family: "Century Gothic" ;
         }
-      }
+      </style>
 
-      $(function(){
-        adjustHeights('textarea');
-      });
+      <script type="">
+        $(function(){
+          var fontstep = 1;
+          
+          $('body .preview').on( 'keyup', function () {
+              var font = parseFloat($(this).css('font-size'));
+              
+              console.log($(this).height());
+              console.log(this.scrollHeight);
+            
+            if (this.offsetHeight < this.scrollHeight - 5) {
+
+              while (this.offsetHeight < this.scrollHeight) {
+                font = font - fontstep;
+                $(this)
+                .css('font-size', font + 'px')
+                .css('height', '5in')
+                .css('width', '8in');
+              }
+
+            } else if (this.offsetHeight > this.scrollHeight + 5) {
+
+              while (this.offsetHeight > this.scrollHeight) {
+                font = font + fontstep;
+                $(this)
+                .css('font-size', font + 'px')
+                .css('height', '5in')
+                .css('width', '8in');
+              }
+
+            }
+
+          });
+          $('body .preview').keyup();
+        });
       </script>
-    </body>
+
+      </body>
     </html>
