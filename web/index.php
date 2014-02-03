@@ -39,9 +39,11 @@ $app->get('/page', function() use($app) {
 	$pdf->ez['bottomMargin'] = $pdf->ez['pageHeight'] / 20;
 	$pdf->ez['leftMargin']   = $pdf->ez['pageWidth'] / 20;
 	$pdf->ez['rightMargin']  = $pdf->ez['pageWidth'] / 20;
-	$pdf->selectFont(realpath(__DIR__ . '/../vendor/rebuy/ezpdf/src/ezpdf/fonts/Helvetica-Bold.afm'));
+	$pdf->selectFont(realpath(__DIR__ . '/../vendor/rebuy/ezpdf/src/ezpdf/fonts/Helvetica.afm'));
 
-	$font = 24;
+	$pdf->setColor(0.4, 0.4, 0.4);
+
+	$font = 1;
 	$page_count = 1;
 
 	// How big is too big?
