@@ -82,44 +82,42 @@
 
       <style type="text/css">
         .preview {
-          width: 8in; 
+          width: 100%; 
           height: 5in; 
           text-align: center; 
           font-size: 150px;
           overflow: hidden;
-          font-weight: 100; 
-          font-family: "Century Gothic" ;
         }
       </style>
 
       <script type="">
         $(function(){
-          var fontstep = 1;
+          var fontstep = 5;
           
           $('body .preview').on( 'keyup', function () {
-              var font = parseFloat($(this).css('font-size'));
-              
-              console.log($(this).height());
-              console.log(this.scrollHeight);
+
+            var font = parseFloat($(this).css('font-size'));
+            var height = $(this).css('height');
+            var width = $(this).css('width');
             
             if (this.offsetHeight < this.scrollHeight - 5) {
 
               while (this.offsetHeight < this.scrollHeight) {
-                font = font - fontstep;
+                font = font - 1;
                 $(this)
                 .css('font-size', font + 'px')
-                .css('height', '5in')
-                .css('width', '8in');
+                .css('height',    height)
+                .css('width',     width);
               }
 
             } else if (this.offsetHeight > this.scrollHeight + 5) {
 
               while (this.offsetHeight > this.scrollHeight) {
-                font = font + fontstep;
+                font = font + 1;
                 $(this)
                 .css('font-size', font + 'px')
-                .css('height', '5in')
-                .css('width', '8in');
+                .css('height',    height)
+                .css('width',     width);
               }
 
             }
