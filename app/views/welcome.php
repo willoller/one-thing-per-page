@@ -47,25 +47,41 @@
         <div class="container">
           <h1>Just One Thing Per Page</h1>
           <p>Easily put one simple phrase on one printable page. Then, print your stack to paper, index cards, or whatever you use for your Scrum backlogs!</p>
-          <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
         </div>
       </div>
 
       <div class="container">
         <!-- Example row of columns -->
         <div class="row">
-          <div class="col-md-2">
 
-          </div>
-          <div class="col-md-8">
+          <div class="col-md-10 col-md-offset-1">
             <form action="/page" method="get">
               <p><textarea class="form-control preview" name="text"></textarea></p>
-              <p><button class="btn">Submit</button></p>
+              <p>
+                <button class="btn btn-default btn-lg"><span class="glyphicon glyphicon-print"></span> Print this one</button>
+                <!-- <button style="float: right;" class="btn btn-primary btn-lg">Add &rarr;</button> -->
+              </p>
             </form>
           </div>
-          <div class="col-md-2">
+
+          <div class="col-md-3">
+<!--
+            <ul class="nav nav-pills nav-stacked">
+              <li class="active">
+                <a href="#">
+                  <span class="badge pull-right">{{count}}</span>
+                  Print All
+                </a>
+              </li>
+            </ul>
+            <p><textarea class="form-control preview" name="text" style="height: 100px;"></textarea></p>
+            <p><textarea class="form-control preview" name="text" style="height: 100px;"></textarea></p>
+            <p><textarea class="form-control preview" name="text" style="height: 100px;"></textarea></p>
+            <p><textarea class="form-control preview" name="text" style="height: 100px;"></textarea></p>
+-->
 
           </div>
+        
         </div>
 
         <hr>
