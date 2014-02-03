@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="onethingperpage">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,8 +15,37 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.11/angular.min.js"></script>
+<script type="text/javascript">
+  var app = angular.module('onethingperpage', []);
+ 
+app.controller('Home', function ($scope) {
+  $scope.pages = [];
+  $scope.jumbo = {value: 'as a developer i want to do stuff'};
+
+  $scope.add = function(){
+    $scope.pages.push($scope.jumbo);
+    $scope.jumbo = {value: ''};
+
+    console.log($scope.pages);
+    console.log($scope.jumbo);
+  };
+
+  $scope.edit = function(index){
+
+    console.log($scope.pages);
+    console.log($scope.jumbo);
+
+    $scope.jumbo.value = $scope.pages[index].value;
+    $scope.pages.splice(index,1);
+    
+    console.log($scope.pages);
+    console.log($scope.jumbo);
+  };
+});
+</script>
     </head>
-    <body>
+    <body ng-controller="Home">
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
@@ -54,31 +83,35 @@
         <!-- Example row of columns -->
         <div class="row">
 
-          <div class="col-md-10 col-md-offset-1">
-            <form action="/page" method="get">
-              <p><textarea class="form-control preview" name="text"></textarea></p>
+          <div class="col-md-9">
+
+            <form action="/page" method="get" target="_blank">
+              <p><textarea class="form-control preview" name="text" ng-model="jumbo.value"></textarea></p>
               <p>
                 <button class="btn btn-default btn-lg"><span class="glyphicon glyphicon-print"></span> Print this one</button>
-                <!-- <button style="float: right;" class="btn btn-primary btn-lg">Add &rarr;</button> -->
+
               </p>
             </form>
+
+            <button style="float: right;" class="btn btn-primary btn-lg" ng-click="add();">
+              Add &rarr;
+            </button>
+
           </div>
 
           <div class="col-md-3">
-<!--
+
             <ul class="nav nav-pills nav-stacked">
               <li class="active">
                 <a href="#">
-                  <span class="badge pull-right">{{count}}</span>
+                  <span class="badge pull-right">{{pages.length}}</span>
                   Print All
                 </a>
               </li>
+              <li ng-repeat="page in pages">
+                <a ng-model="page.value" ng-click="edit($index)">{{page.value}}</a>
+              </li>
             </ul>
-            <p><textarea class="form-control preview" name="text" style="height: 100px;"></textarea></p>
-            <p><textarea class="form-control preview" name="text" style="height: 100px;"></textarea></p>
-            <p><textarea class="form-control preview" name="text" style="height: 100px;"></textarea></p>
-            <p><textarea class="form-control preview" name="text" style="height: 100px;"></textarea></p>
--->
 
           </div>
         
