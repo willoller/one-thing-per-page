@@ -1,7 +1,16 @@
 {
-  "require": {
-    "silex/silex": "~1.1",
-    "symfony/templating": "2.5.*@dev",
-    "rebuy/ezpdf": "dev-master"
-  }
+	"config": {
+		"vendor-dir": "app/vendor"
+	},
+
+	"require": {
+		"silex/silex": "~1.1",
+		"symfony/templating": "2.5.*@dev",
+		"rebuy/ezpdf": "dev-master",
+		"predis/predis": "dev-master"
+	},
+
+	"autoload": {
+		"classmap": ["app/"]
+	}
 }

@@ -16,6 +16,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.11/angular.min.js"></script>
+
       <script type="text/javascript">
         var app = angular.module('onethingperpage', []);
        
@@ -48,6 +49,7 @@
           word-wrap: break-word;
         }
       </style>
+
     </head>
     <body ng-controller="Home">
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -78,8 +80,15 @@
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
         <div class="container">
-          <h1>Just One Thing Per Page</h1>
-          <p>Easily put one simple phrase on one printable page. Then, print your stack to paper, index cards, or whatever you use for your Scrum backlogs!</p>
+          <div class="row">
+            <div class="col-md-9">
+              <h1>One Thing Per Page</h1>
+              <p>Easily put one simple phrase on one printable page. Then, print your stack to paper, index cards, or whatever you use for your Scrum backlogs!</p>
+            </div>
+
+            <div class="col-md-3">
+            </div>
+          </div>
         </div>
       </div>
 
@@ -89,14 +98,9 @@
 
           <div class="col-md-9">
 
-            <form action="/page" method="get" target="_blank">
-              <p>
-                <textarea class="form-control preview" name="text" ng-model="jumbo.value"></textarea>
-              </p>
-              <p>
-                <button class="btn btn-default btn-lg"><span class="glyphicon glyphicon-print"></span> Print this one</button>
-              </p>
-            </form>
+            <p>
+              <textarea class="form-control preview" name="text" ng-model="jumbo.value"></textarea>
+            </p>
 
             <button style="float: right;" class="btn btn-primary btn-lg" ng-click="add();">
               Add &rarr;
@@ -106,16 +110,23 @@
 
           <div class="col-md-3">
             
-            <div class="list-group">
-              <a href="#" class="list-group-item active">
-                <span class="badge pull-right">{{pages.length}}</span>
-                Print All
-              </a>
-              <a ng-repeat="page in pages" ng-model="page.value" ng-click="edit($index)" class="list-group-item">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-                {{page.value}}
-              </a>
-            </div>
+            <form class="list-group" action="/print" method="post" target="_blank">
+              <p>
+                <button class="btn btn-primary btn-lg" style="width: 100%">
+                  <span class="glyphicon glyphicon-print"></span>
+                  Print All
+                  <span class="badge pull-right">{{pages.length}}</span>
+                </button>
+              </p>
+
+              <div class="list-group">
+                <a ng-repeat="page in pages" ng-model="page.value" ng-click="edit($index)" class="list-group-item">
+                  <span class="glyphicon glyphicon-chevron-left"></span>
+                  {{page.value}}
+                  <input name="pages[]" type="hidden" value="{{page.value}}" />
+                </a>
+              </div>
+            </form>
 
           </div>
         
@@ -132,7 +143,6 @@
       <script src="https://code.jquery.com/jquery.js"></script>
       <!-- Include all compiled plugins (below), or include individual files as needed -->
       <script src="/js/bootstrap.min.js"></script>
-
 
       <script type="">
         $(function(){
