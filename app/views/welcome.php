@@ -14,36 +14,40 @@
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
+    <![endif]-->
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.11/angular.min.js"></script>
-<script type="text/javascript">
-  var app = angular.module('onethingperpage', []);
- 
-app.controller('Home', function ($scope) {
-  $scope.pages = [];
-  $scope.jumbo = {value: 'as a developer i want to do stuff'};
+      <script type="text/javascript">
+        var app = angular.module('onethingperpage', []);
+       
+        app.controller('Home', function ($scope) {
+          $scope.pages = [];
+          $scope.jumbo = {value: 'test'};
 
-  $scope.add = function(){
-    $scope.pages.push($scope.jumbo);
-    $scope.jumbo = {value: ''};
+          $scope.add = function(){
+            $scope.pages.push($scope.jumbo);
+            $scope.jumbo = {value: ''};
+          };
 
-    console.log($scope.pages);
-    console.log($scope.jumbo);
-  };
+          $scope.edit = function(index){
+            $scope.jumbo.value = $scope.pages[index].value;
+            $scope.pages.splice(index,1);
+          };
+        });
+      </script>
 
-  $scope.edit = function(index){
+      <style type="text/css">
+        .preview {
+          width: 100%; 
+          height: 400px !important;
+          text-align: center; 
+          font-size: 300px;
+          overflow: hidden;
+        }
 
-    console.log($scope.pages);
-    console.log($scope.jumbo);
-
-    $scope.jumbo.value = $scope.pages[index].value;
-    $scope.pages.splice(index,1);
-    
-    console.log($scope.pages);
-    console.log($scope.jumbo);
-  };
-});
-</script>
+        .list-group-item {
+          word-wrap: break-word;
+        }
+      </style>
     </head>
     <body ng-controller="Home">
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -86,10 +90,11 @@ app.controller('Home', function ($scope) {
           <div class="col-md-9">
 
             <form action="/page" method="get" target="_blank">
-              <p><textarea class="form-control preview" name="text" ng-model="jumbo.value"></textarea></p>
+              <p>
+                <textarea class="form-control preview" name="text" ng-model="jumbo.value"></textarea>
+              </p>
               <p>
                 <button class="btn btn-default btn-lg"><span class="glyphicon glyphicon-print"></span> Print this one</button>
-
               </p>
             </form>
 
@@ -100,18 +105,17 @@ app.controller('Home', function ($scope) {
           </div>
 
           <div class="col-md-3">
-
-            <ul class="nav nav-pills nav-stacked">
-              <li class="active">
-                <a href="#">
-                  <span class="badge pull-right">{{pages.length}}</span>
-                  Print All
-                </a>
-              </li>
-              <li ng-repeat="page in pages">
-                <a ng-model="page.value" ng-click="edit($index)">{{page.value}}</a>
-              </li>
-            </ul>
+            
+            <div class="list-group">
+              <a href="#" class="list-group-item active">
+                <span class="badge pull-right">{{pages.length}}</span>
+                Print All
+              </a>
+              <a ng-repeat="page in pages" ng-model="page.value" ng-click="edit($index)" class="list-group-item">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                {{page.value}}
+              </a>
+            </div>
 
           </div>
         
@@ -129,44 +133,35 @@ app.controller('Home', function ($scope) {
       <!-- Include all compiled plugins (below), or include individual files as needed -->
       <script src="/js/bootstrap.min.js"></script>
 
-      <style type="text/css">
-        .preview {
-          width: 100%; 
-          height: 5in; 
-          text-align: center; 
-          font-size: 150px;
-          overflow: hidden;
-        }
-      </style>
 
       <script type="">
         $(function(){
-          var fontstep = 5;
+          var fontstep = 1;
           
           $('body .preview').on( 'keyup', function () {
 
             var font = parseFloat($(this).css('font-size'));
             var height = $(this).css('height');
-            var width = $(this).css('width');
-            
+
+            // console.log(this.offsetHeight);
+            // console.log(this.scrollHeight);
+
             if (this.offsetHeight < this.scrollHeight - 5) {
 
               while (this.offsetHeight < this.scrollHeight) {
                 font = font - 1;
                 $(this)
                 .css('font-size', font + 'px')
-                .css('height',    height)
-                .css('width',     width);
+                .css('height',    height);
               }
 
-            } else if (this.offsetHeight > this.scrollHeight + 5) {
+            } else if (this.offsetHeight > this.scrollHeight) {
 
-              while (this.offsetHeight > this.scrollHeight) {
+              while (this.offsetHeight > this.scrollHeight + 5) {
                 font = font + 1;
                 $(this)
                 .css('font-size', font + 'px')
-                .css('height',    height)
-                .css('width',     width);
+                .css('height',    height);  
               }
 
             }
