@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bootstrap 101 Template</title>
+  <title>One Thing Per Page</title>
 
   <!-- Bootstrap -->
   <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -22,10 +22,13 @@
        
         app.controller('Home', function ($scope) {
           $scope.pages = [];
-          $scope.jumbo = {value: 'test'};
+          $scope.jumbo = {value: 'As a product owner, I want to print my backlog so I don\'t have to write it out by hand'};
 
           $scope.add = function(){
-            $scope.pages.push($scope.jumbo);
+            var cards = $scope.jumbo.value.split("\n");
+            angular.forEach(cards, function(card){
+              $scope.pages.push({value: card});
+            });
             $scope.jumbo = {value: ''};
           };
 
@@ -37,12 +40,31 @@
       </script>
 
       <style type="text/css">
+        .jumbotron {
+          background: #222;
+          color: white;
+          border-bottom: 1px solid #ddd;
+          font-size: 120%;
+        }
+        .jumbotron h1 { font-size: 400%; }
+        .jumbotron p { font-size: 200%; font-weight: 150}
+
         .preview {
           width: 100%; 
           height: 400px !important;
           text-align: center; 
           font-size: 300px;
           overflow: hidden;
+          text-align: center;
+        }
+
+        h1 span {
+          border: 1px solid #ddd;
+          color: black;
+          background: white;
+          display: inline-block;
+          overflow: hidden;
+          padding: .25em;
         }
 
         .list-group-item {
@@ -52,38 +74,17 @@
 
     </head>
     <body ng-controller="Home">
-      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">One Thing Per Page</a>
-          </div>
-          <div class="navbar-collapse collapse">
-            <form class="navbar-form navbar-right" role="form">
-              <div class="form-group">
-                <input type="text" placeholder="Email" class="form-control">
-              </div>
-              <div class="form-group">
-                <input type="password" placeholder="Password" class="form-control">
-              </div>
-              <button type="submit" class="btn btn-success">Sign in</button>
-            </form>
-          </div><!--/.navbar-collapse -->
-        </div>
-      </div>
-
-      <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
         <div class="container">
           <div class="row">
             <div class="col-md-9">
-              <h1>One Thing Per Page</h1>
-              <p>Easily put one simple phrase on one printable page. Then, print your stack to paper, index cards, or whatever you use for your Scrum backlogs!</p>
+              <h1> 
+                <span>One</span>
+                <span>Thing</span>
+                <span>Per</span>
+                <span>Page</span>
+              </h1>
+              <p>Put your user stories in the box, and add them to your stack. Then, print your stack to 5x8&#8243; index cards - perfect for scrum boards!</p>
             </div>
 
             <div class="col-md-3">
