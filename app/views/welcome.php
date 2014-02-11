@@ -44,9 +44,8 @@
           background: #222;
           color: white;
           border-bottom: 1px solid #ddd;
-          font-size: 120%;
         }
-        .jumbotron h1 { font-size: 400%; }
+        .jumbotron h1 { font-size: 400%; margin-top: 0; }
         .jumbotron p { font-size: 200%; font-weight: 150}
 
         .preview {
@@ -70,6 +69,36 @@
         .list-group-item {
           word-wrap: break-word;
         }
+
+        /* xs */
+        @media (max-width: 767px) {
+          .jumbotron {
+            font-size: 60%;
+            padding: 20px;
+          }
+        }
+        /* s */
+        @media (min-width: 768px) and (max-width: 991px) {
+          .jumbotron {
+            font-size: 80%;
+            padding: 30px;
+          }
+        }
+        /* md */
+        @media (min-width: 992px) and (max-width: 1199px) {
+          .jumbotron {
+            font-size: 100%;
+            padding: 40px;
+          }
+        }
+        /* lg */
+        @media (min-width: 1200px) {
+          .jumbotron {
+            font-size: 120%;
+            padding: 50px;
+          }
+        }
+
       </style>
 
     </head>
@@ -78,6 +107,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-9">
+
               <h1> 
                 <span>One</span>
                 <span>Thing</span>
@@ -85,9 +115,7 @@
                 <span>Page</span>
               </h1>
               <p>Put your user stories in the box, and add them to your stack. Then, print your stack to 5x8&#8243; index cards - perfect for scrum boards!</p>
-            </div>
-
-            <div class="col-md-3">
+             
             </div>
           </div>
         </div>
@@ -97,7 +125,7 @@
         <!-- Example row of columns -->
         <div class="row">
 
-          <div class="col-md-9">
+          <div class="col-md-9 col-sm-12 col-xs-12">
 
             <p>
               <textarea class="form-control preview" name="text" ng-model="jumbo.value"></textarea>
@@ -109,7 +137,7 @@
 
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-12 col-xs-12">
             
             <form class="list-group" action="/print" method="post" target="_blank">
               <p>
@@ -129,6 +157,29 @@
               </div>
             </form>
 
+            <div style="border: 1px solid #999; padding: 4px; height: 15em;" class="hidden-xs" ng-hide="pages.length">
+              <a 
+                style="height: 100%;
+                  display: block;
+                  background: white url(http://ecx.images-amazon.com/images/I/317KKCTkiOL._SL900_.jpg) center center no-repeat"
+                href="http://www.amazon.com/gp/product/B002OB49L4/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B002OB49L4&linkCode=as2&tag=willollercom-20">
+                
+                <p style="padding: 20px;">
+
+                  <?php if (rand(0,1) > 0.5) : ?>
+                    <span style="background: #666; background: rgba(0,0,0,0.75); color: white; font-style: oblique; font-weight: 900; font-size: 175%;">
+                      Wait! Do you need some more index cards?
+                    </span>
+                  <?php else : ?>
+                    <span style="background: #357ebd; color: white; font-style: oblique; font-weight: 900; font-size: 175%; ">
+                      Buy 500 Oxford Ruled 5x8 Index Cards
+                    </span>
+                  <?php endif; ?>
+
+                </p>
+              </a>
+            </div>
+
           </div>
         
         </div>
@@ -137,6 +188,7 @@
 
         <footer>
           <p>&copy; Will Oller 2014</p>
+
         </footer>
       </div> <!-- /container -->
 
@@ -166,7 +218,7 @@
                 .css('height',    height);
               }
 
-            } else if (this.offsetHeight > this.scrollHeight) {
+            } else if (this.offsetHeight >= this.scrollHeight) {
 
               while (this.offsetHeight > this.scrollHeight + 5) {
                 font = font + 1;
