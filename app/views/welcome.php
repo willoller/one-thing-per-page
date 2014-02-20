@@ -21,8 +21,10 @@
         var app = angular.module('onethingperpage', []);
        
         app.controller('Home', function ($scope) {
+
           $scope.pages = [];
           $scope.jumbo = {value: 'As a product owner, I want to print my backlog so I don\'t have to write it out by hand'};
+          $scope.$broadcast("$myNgModelSet");
 
           $scope.add = function(){
             var cards = $scope.jumbo.value.split("\n");
@@ -34,8 +36,9 @@
 
           $scope.edit = function(index){
             $scope.jumbo.value = $scope.pages[index].value;
-            $scope.pages.splice(index,1);
+            $scope.pages.splice(index, 1);
           };
+
         });
       </script>
 
@@ -47,6 +50,17 @@
         }
         .jumbotron h1 { font-size: 400%; margin-top: 0; }
         .jumbotron p { font-size: 200%; font-weight: 150}
+
+        textarea{
+          white-space: -moz-pre-wrap; /* Mozilla */
+          white-space: -hp-pre-wrap; /* HP printers */
+          white-space: -o-pre-wrap; /* Opera 7 */
+          white-space: -pre-wrap; /* Opera 4-6 */
+          white-space: pre-wrap; /* CSS 2.1 */
+          white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+          word-wrap: break-word; /* IE */
+          -moz-binding: url('xbl.xml#wordwrap'); /* Firefox (using XBL) */
+        }
 
         .preview {
           width: 100%; 
@@ -127,9 +141,7 @@
 
           <div class="col-md-9 col-sm-12 col-xs-12">
 
-            <p>
-              <textarea class="form-control preview" name="text" ng-model="jumbo.value"></textarea>
-            </p>
+            <p resize-font-size></p>
 
             <button style="float: right;" class="btn btn-primary btn-lg" ng-click="add();">
               Add &rarr;
@@ -198,40 +210,60 @@
       <script src="/js/bootstrap.min.js"></script>
 
       <script type="">
-        $(function(){
-          var fontstep = 1;
+
+        app.directive("resizeFontSize", ["$window", "$log", function($window, $log){
           
-          $('body .preview').on( 'keyup', function () {
+          return {
+            replace: true,
 
-            var font = parseFloat($(this).css('font-size'));
-            var height = $(this).css('height');
+            template: '<textarea class="form-control preview" name="text" ng-model="jumbo.value"></textarea>',
 
-            // console.log(this.offsetHeight);
-            // console.log(this.scrollHeight);
+            link: function(scope, element, attr){
 
-            if (this.offsetHeight < this.scrollHeight - 5) {
+              var box = element;
+              var e = element[0];
 
-              while (this.offsetHeight < this.scrollHeight) {
-                font = font - 1;
-                $(this)
-                .css('font-size', font + 'px')
-                .css('height',    height);
+              var resize = function(){
+
+                var font = parseFloat( $window.document.defaultView.getComputedStyle(element[0], '').fontSize );
+                var height = parseFloat( $window.document.defaultView.getComputedStyle(element[0], '').height );
+
+                while (font < 160 && !(e.offsetHeight < e.scrollHeight - 10)) {
+                  $log.debug( e.offsetHeight + " is more than " + (e.scrollHeight + 5) );
+
+                  font = font + 1;
+
+                  element
+                  .css('font-size', font + 'px')
+                  .css('height',    height);
+                }
+
+                while (font > 8 && (e.offsetHeight < e.scrollHeight)) {
+                  $log.debug( e.offsetHeight + " is less than " + (e.scrollHeight) );
+
+                  font = font - 2;
+                  
+                  $log.debug(font);
+
+                  element
+                  .css('font-size', font + 'px')
+                  .css('height',    height);
+                }
               }
 
-            } else if (this.offsetHeight >= this.scrollHeight) {
+              scope.$watch('jumbo', function(){
+                console.log(scope.jumbo);
+                resize();
+              }, true);
 
-              while (this.offsetHeight > this.scrollHeight + 5) {
-                font = font + 1;
-                $(this)
-                .css('font-size', font + 'px')
-                .css('height',    height);  
-              }
-
+              box.bind("keyup", function(){
+                resize();
+              });
             }
 
-          });
-          $('body .preview').keyup();
-        });
+          };
+        
+        }]); 
       </script>
 
       </body>
