@@ -25,35 +25,20 @@ class Document {
 		if ($this->page_count > 1)
 			$this->pdf->ezNewPage();
 
-		$font = 1;
-		$page_count = $this->pdf->ezPageCount;
-
-		$spacing = 1.5;
-
-		// How big is too big?
-		while ($page_count == $this->page_count && $font < 400)
+		for ($font = 200; $font > 0; $font--)
 		{
-			$this->pdf->transaction('start');
+			$spacing = 0.80;
+			if ($font > 30) $spacing = 0.85;
+			if ($font > 60) $spacing = 0.90;
+			if ($font > 90) $spacing = 0.95;
+			if ($font > 120) $spacing = 1.00;
 
-			$font++;
-
-			$spacing = 1;
-			//if ($font > 10) $spacing = 1.15;
-			//if ($font > 20) $spacing = 0.95;
-			if ($font > 30) $spacing = 0.9;
-			if ($font > 60) $spacing = 0.8;
-			if ($font > 120) $spacing = 0.75;
-
-			$this->pdf->ezText($text, $font, ["justification" => "center", "spacing" => $spacing]);
-
-			$page_count = $this->pdf->ezPageCount;
-
-		    $this->pdf->transaction('rewind');
+			if (!$this->pdf->ezText($text, $font, ["justification" => "center", "spacing" => $spacing], true))
+			{
+				$this->pdf->ezText($text, $font, ["justification" => "center", "spacing" => $spacing]);
+				break;
+			}
 		}
-
-		$font--;
-		
-		$this->pdf->ezText($text, $font, ["justification" => "center", "spacing" => $spacing]);
 	}
 
 	public function stream()
