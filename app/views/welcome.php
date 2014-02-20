@@ -51,20 +51,9 @@
         .jumbotron h1 { font-size: 400%; margin-top: 0; }
         .jumbotron p { font-size: 200%; font-weight: 150}
 
-        textarea{
-          white-space: -moz-pre-wrap; /* Mozilla */
-          white-space: -hp-pre-wrap; /* HP printers */
-          white-space: -o-pre-wrap; /* Opera 7 */
-          white-space: -pre-wrap; /* Opera 4-6 */
-          white-space: pre-wrap; /* CSS 2.1 */
-          white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
-          word-wrap: break-word; /* IE */
-          -moz-binding: url('xbl.xml#wordwrap'); /* Firefox (using XBL) */
-        }
-
         .preview {
           width: 100%; 
-          height: 400px !important;
+          height: 400px;
           text-align: center; 
           font-size: 300px;
           overflow: hidden;
@@ -87,29 +76,41 @@
         /* xs */
         @media (max-width: 767px) {
           .jumbotron {
-            font-size: 60%;
+            font-size: 50%;
             padding: 20px;
+          }
+          textarea.form-control {
+            height: 200px;
           }
         }
         /* s */
         @media (min-width: 768px) and (max-width: 991px) {
           .jumbotron {
-            font-size: 80%;
+            font-size: 60%;
             padding: 30px;
+          }
+          textarea.form-control {
+            height: 250px;
           }
         }
         /* md */
         @media (min-width: 992px) and (max-width: 1199px) {
           .jumbotron {
-            font-size: 100%;
+            font-size: 80%;
             padding: 40px;
+          }
+          textarea.form-control {
+            height: 300px;
           }
         }
         /* lg */
         @media (min-width: 1200px) {
           .jumbotron {
-            font-size: 120%;
+            font-size: 100%;
             padding: 50px;
+          }
+          textarea.form-control {
+            height: 400px;
           }
         }
 
@@ -139,7 +140,7 @@
         <!-- Example row of columns -->
         <div class="row">
 
-          <div class="col-md-9 col-sm-12 col-xs-12">
+          <div class="col-md-8 col-sm-7 col-xs-12">
 
             <p resize-font-size></p>
 
@@ -149,7 +150,7 @@
 
           </div>
 
-          <div class="col-md-3 col-sm-12 col-xs-12">
+          <div class="col-md-4 col-sm-5 col-xs-12">
             
             <form class="list-group" action="/print" method="post" target="_blank">
               <p>
@@ -204,10 +205,6 @@
         </footer>
       </div> <!-- /container -->
 
-      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-      <script src="https://code.jquery.com/jquery.js"></script>
-      <!-- Include all compiled plugins (below), or include individual files as needed -->
-      <script src="/js/bootstrap.min.js"></script>
 
       <script type="">
 
