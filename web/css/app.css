@@ -28,6 +28,10 @@ h1 span {
   word-wrap: break-word;
 }
 
+textarea.form-control {
+  margin-bottom: 12px;
+}
+
 /* xs */
 @media (max-width: 767px) {
   .jumbotron {

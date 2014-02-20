@@ -47,9 +47,9 @@
       <div class="row">
         <div class="col-md-8 col-sm-7 col-xs-12">
 
-          <p resize-font-size></p>
+          <div resize-font-size></div>
 
-          <button style="float: right;" class="btn btn-primary btn-lg" ng-click="add();">
+          <button style="float: right; margin-bottom: 12px;" class="btn btn-primary btn-lg" ng-click="add();">
             Add &rarr;
           </button>
 
