@@ -21,14 +21,14 @@
 
   </head>
   <body ng-controller="Home">
-    
+
     <div class="jumbotron">
 
       <div class="container">
         <div class="row">
           <div class="col-md-8">
 
-            <h1> 
+            <h1>
               <span>One</span>
               <span>Thing</span>
               <span>Per</span>
@@ -36,7 +36,7 @@
             </h1>
 
             <p>Put your user stories in the box, and add them to your stack. Then, print your stack to 5x8&#8243; index cards - perfect for scrum boards!</p>
-           
+
           </div>
         </div>
       </div>
@@ -56,13 +56,13 @@
         </div>
 
         <div class="col-md-4 col-sm-5 col-xs-12">
-          
+
           <form class="list-group" action="/print" method="post" target="_blank">
             <p>
               <button class="btn btn-primary btn-lg" style="width: 100%">
                 <span class="glyphicon glyphicon-print"></span>
                 Print All
-                <span class="badge pull-right">{{pages.length}}</span>
+                <span class="badge">{{pages.length}}</span>
               </button>
             </p>
 
@@ -78,13 +78,13 @@
           <?php include ('ads.php'); ?>
 
         </div>
-      
+
       </div>
 
       <hr>
 
       <footer>
-        <p>&copy; Will Oller 2014</p>
+        <p>&copy; Will Oller <?php echo date('Y'); ?></p>
       </footer>
     </div> <!-- /container -->
 

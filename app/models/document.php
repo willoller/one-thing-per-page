@@ -17,11 +17,11 @@ class Document {
 		$this->pdf->selectFont(realpath(__DIR__ . '/../vendor/rebuy/ezpdf/src/ezpdf/fonts/Helvetica.afm'));
 		$this->pdf->setColor(0.4, 0.4, 0.4);
 	}
-	
+
 	public function addCard($text)
 	{
 		$this->page_count++;
-		
+
 		if ($this->page_count > 1)
 			$this->pdf->ezNewPage();
 

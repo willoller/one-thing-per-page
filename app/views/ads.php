@@ -1,10 +1,10 @@
 <div style="border: 1px solid #999; padding: 4px; height: 15em;" class="hidden-xs" ng-hide="pages.length">
-  <a 
+  <a
     style="height: 100%;
       display: block;
       background: white url(/images/indexcards.jpg) center center no-repeat"
     href="http://www.amazon.com/gp/product/B002OB49L4/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B002OB49L4&linkCode=as2&tag=willollercom-20">
-    
+
     <p style="padding: 20px;">
 
       <?php if (rand(0,1) > 0.5) : ?>

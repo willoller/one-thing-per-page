@@ -4,8 +4,9 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "saucy64_vmware"
-  config.vm.box_url = "http://brennovich.s3.amazonaws.com/saucy64_vmware_fusion.box"
+  config.vm.box = "trusty-ubuntu-64"
+  config.vm.box_url = "https://oss-binaries.phusionpassenger.com/vagrant/boxes/latest/ubuntu-14.04-amd64-vmwarefusion.box"
+
 
   # config.vm.network :forwarded_port, guest: 80, host: 8080
 
@@ -25,12 +26,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   vb.customize ["modifyvm", :id, "--memory", "1024"]
   # end
 
-  config.vm.provision :shell, :inline => "apt-get update --fix-missing && apt-get -y install puppet"
+  # config.vm.provision :shell, :inline => "apt-get update --fix-missing && apt-get -y install puppet"
 
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "."
     puppet.manifest_file  = "system.pp"
     puppet.module_path    = "puppet_modules"
-    # puppet.options        = "--verbose --debug"
+    puppet.options        = "--verbose --debug"
   end
 end

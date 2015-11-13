@@ -29,7 +29,7 @@ class { 'apt':
 apt::ppa { 'ppa:ondrej/php5-oldstable': }
 
 class ruby {
-  package { ["ruby", "rubygems", "rake"]:
+  package { ["ruby", "rake"]:
     ensure => present,
     require => Class["system"],
   }
