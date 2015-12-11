@@ -24,6 +24,10 @@ h1 span {
   padding: .25em;
 }
 
+hr {
+  margin: 10px 0;
+}
+
 .list-group-item {
   word-wrap: break-word;
 }
@@ -65,10 +69,10 @@ textarea.form-control {
 /* lg */
 @media (min-width: 1200px) {
   .jumbotron {
-    font-size: 100%;
-    padding: 20px 40px;
+    font-size: 90%;
+    padding: 20px 40px 10px;
   }
   textarea.form-control {
-    height: 400px;
+    height: 380px;
   }
 }
