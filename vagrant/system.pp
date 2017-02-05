@@ -46,6 +46,16 @@ class php {
   }
 }
 
+file { "/var/www/web":
+  ensure => directory,
+  mode => 0755,
+}
+
+file { "/var/www/html":
+  ensure => directory,
+  mode => 0755,
+}
+
 apache::mod { ['php5', 'rewrite', 'headers']: }
 
 apache::vhost { 'dev.onethingperpage.com':
@@ -62,6 +72,7 @@ apache::vhost { 'dev.onethingperpage.com':
     'dev.onethingperpage.com',
     'dev.theinspectionhub.com',
   ],
+  require => [ File["/var/www/web"], File["/var/www/html"] ],
 }
 
 include apt
