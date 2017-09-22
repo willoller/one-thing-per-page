@@ -10,6 +10,16 @@ $app->get('/', function() use($app, $templating)
     return $templating->render('welcome.php', []);
 });
 
+// Ad Page
+$app->get('/buy-index-cards', function() use($app)
+{
+    $app['monolog']->addInfo('A user clicked our ad!');
+
+    $redirect = "http://www.amazon.com/gp/product/B002OB49L4/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B002OB49L4&linkCode=as2&tag=willollercom-20";
+
+    return $app->redirect($redirect);
+});
+
 // Print Page
 $app->post('/print', function() use ($app)
 {
