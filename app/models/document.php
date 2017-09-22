@@ -48,6 +48,6 @@ class Document {
 
 	public function output()
 	{
-		$this->pdf->ezOutput();
+		return $this->pdf->ezOutput();
 	}
 }

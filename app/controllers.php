@@ -1,10 +1,16 @@
 <?php
 
+use Symfony\Component\HttpFoundation\Response;
+
+// Home Page
 $app->get('/', function() use($app, $templating)
 {
+    $app['monolog']->addInfo('A user came to the home page');
+
     return $templating->render('welcome.php', []);
 });
 
+// Print Page
 $app->post('/print', function() use ($app)
 {
     $pages = $_POST['pages'];
@@ -15,10 +21,12 @@ $app->post('/print', function() use ($app)
         $doc->addCard($p);
     }
 
-    $doc->stream();
+    $app['monolog']->addInfo('A user printed ' . count($pages) . ' pages');
 
-    $app->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE, 'page.pdf');
+    return new Response($doc->output(), 200, array(
+        'Content-Type'        => 'application/pdf',
+        'Content-Disposition' => 'inline; filename="stack.pdf"' 
+    ));
 
-    return;
 });
 
