@@ -1,6 +1,22 @@
 var app = angular.module('onethingperpage', []);
 
-app.controller('Home', function ($scope) {
+app.factory('logService', function ($log, $http) {
+  function log (level, message) {
+    $log[level](message);
+
+    $http.post(
+      "/log",
+      { level: level, message: message }
+    ).catch(function(err){
+      $log.warn(err);
+    });
+  }
+
+  return log;
+});
+
+app.controller('Home', function ($scope, logService) {
+  var log = logService;
 
   $scope.pages = [];
   $scope.jumbo = {value: 'As a product owner, I want to print my backlog so I don\'t have to write it out by hand'};
@@ -8,6 +24,8 @@ app.controller('Home', function ($scope) {
 
   $scope.add = function(){
     var cards = $scope.jumbo.value.split("\n");
+    log('info', 'Clicked "Add"');
+    log('debug', 'Added ' + cards.length + " cards to the stack");
     angular.forEach(cards, function(card){
       $scope.pages.push({value: card});
     });
@@ -39,7 +57,7 @@ app.directive("resizeFontSize", ["$window", "$log", function($window, $log){
         var height = parseFloat( $window.document.defaultView.getComputedStyle(element[0], '').height );
 
         while (font < 160 && !(e.offsetHeight < e.scrollHeight - 10)) {
-          $log.debug( e.offsetHeight + " is more than " + (e.scrollHeight + 5) );
+          //$log.debug( e.offsetHeight + " is more than " + (e.scrollHeight + 5) );
 
           font = font + 1;
 
@@ -49,11 +67,11 @@ app.directive("resizeFontSize", ["$window", "$log", function($window, $log){
         }
 
         while (font > 8 && (e.offsetHeight < e.scrollHeight)) {
-          $log.debug( e.offsetHeight + " is less than " + (e.scrollHeight) );
+          //$log.debug( e.offsetHeight + " is less than " + (e.scrollHeight) );
 
           font = font - 2;
           
-          $log.debug(font);
+          //$log.debug(font);
 
           element
           .css('font-size', font + 'px')
@@ -62,7 +80,7 @@ app.directive("resizeFontSize", ["$window", "$log", function($window, $log){
       }
 
       scope.$watch('jumbo', function(){
-        console.log(scope.jumbo);
+        //console.log(scope.jumbo);
         resize();
       }, true);
 

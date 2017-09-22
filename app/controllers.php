@@ -27,6 +27,19 @@ $app->post('/print', function() use ($app)
         'Content-Type'        => 'application/pdf',
         'Content-Disposition' => 'inline; filename="stack.pdf"' 
     ));
+});
 
+// Log POST route
+$app->post('/log', function() use($app)
+{
+    $input = file_get_contents('php://input');
+    $json = json_decode($input);
+
+    $message = $json->message;
+    $level = $json->level;
+
+    $app['monolog']->log($level, $message, array("client-side"));
+
+    return new Response("OK", 200);
 });
 
