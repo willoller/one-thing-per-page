@@ -5,6 +5,10 @@ use Symfony\Component\HttpFoundation\Response;
 // Home Page
 $app->get('/', function() use($app, $templating)
 {
+    if (extension_loaded('newrelic')) {
+        newrelic_name_transaction('homepage');
+    }
+
     $app['monolog']->addInfo('A user came to the home page');
 
     return $templating->render('welcome.php', []);
@@ -23,6 +27,10 @@ $app->get('/buy-index-cards', function() use($app)
 // Print Page
 $app->post('/print', function() use ($app)
 {
+    if (extension_loaded('newrelic')) {
+        newrelic_name_transaction('print_page');
+    }
+
     $pages = $_POST['pages'];
 
     $doc = new Models\Document();
